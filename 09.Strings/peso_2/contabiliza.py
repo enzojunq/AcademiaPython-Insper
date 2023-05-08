@@ -3,7 +3,7 @@ def contabiliza(lista_doacoes:dict):
     total={}
     for pessoas,itens in lista_doacoes.items():
         for item in itens:
-            item=item.split(' ')
+            item=item.split()
             nome_item=item[1:]
             nome_item=' '.join(nome_item)
             if nome_item not in total:
