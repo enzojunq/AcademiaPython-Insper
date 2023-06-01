@@ -15,8 +15,36 @@ def monitora_represas(estado_inicial:dict,variacoes:dict):
             represas[nome]=(atual+represas_saldo[nome])/dados['capacidade'] *100
         else:
             represas[nome]+=(atual+represas_saldo[nome])/dados['capacidade']*100
+
+    for represa,valor in represas.items():
+        if valor < 20:
+            if 'emergencia' not in represas_situacao:
+                represas_situacao['emergencia']=[represa]
+            else:
+                represas_situacao['emergencia'].append(represa)
+        elif valor < 50:
+            if 'critico' not in represas_situacao:
+                represas_situacao['critico']=[represa]
+            else:
+                represas_situacao['critico'].append(represa)
+        elif valor < 70:
+            if 'atencao' not in represas_situacao:
+                represas_situacao['atencao']=[represa]
+            else:
+                represas_situacao['atencao'].append(represa)
+        elif valor <= 100:
+            if 'normal' not in represas_situacao:
+                represas_situacao['normal']=[represa]
+            else:
+                represas_situacao['normal'].append(represa)
+        else:
+            if 'escoar' not in represas_situacao:
+                represas_situacao['escoar']=[represa]
+            else:
+                represas_situacao['escoar'].append(represa)
+
     
-    return represas
+    return represas_situacao
 
 
     
