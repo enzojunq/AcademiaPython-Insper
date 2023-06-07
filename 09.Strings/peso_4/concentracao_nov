@@ -1,0 +1,35 @@
+def concentracao_nociva(gases):
+    concentracao={}
+    nocivos={}
+    total=0
+
+    for amostra in gases:
+        for amostra2 in amostra:
+            for gas in amostra2:
+                if gas not in concentracao:
+                    concentracao[gas]=1       
+                else:
+                    concentracao[gas]+=1
+                total+=1
+                
+    conc_oxigenio=concentracao['O']*100/total
+    if 'N' in concentracao:
+        conc_nitrogenio=concentracao['N']*100/total
+    else:
+        conc_nitrogenio=0
+
+    if conc_oxigenio<=20:
+        nocivos['O']=conc_oxigenio
+    if conc_nitrogenio>=70:
+        nocivos['N']=conc_oxigenio
+
+    for elemento, quantidade in concentracao.items():
+        conc_elemento=quantidade*100/total
+        if elemento == 'O' or elemento == 'N':
+            continue
+        elif conc_elemento > 2:
+            nocivos[elemento]=conc_elemento
+    return nocivos
+
+gases = [[['Th', 'O'], ['O', 'Th']], [['Ra', 'Th', 'Th', 'Se'], ['O', 'Ra'], ['Ra', 'O', 'Sm']]]
+print(concentracao_nociva(gases))
